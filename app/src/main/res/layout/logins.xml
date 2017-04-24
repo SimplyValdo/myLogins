@@ -8,16 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_weight="8">
+        android:layout_weight="5">
 
-        //Dummy Profile for now
+        //Dummy Login for now
         <TextView
             android:id="@+id/dummy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingTop="10dp"
-            android:text="1. Dummy Profile"/>
+            android:text="1. Dummy login"/>
 
         <ListView
             android:layout_width="match_parent"
@@ -30,14 +30,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
 
         <Button
             android:id="@+id/newButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NEW PROFILE"/>
+            android:layout_weight="1"
+            android:text="NEW"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="EDIT"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="DELETE"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
 
     </LinearLayout>
 
@@ -57,12 +79,13 @@
             android:text="Profiles"/>
 
         <TextView
+            android:id="@+id/logins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="BLANK"/>
+            android:text="Logins"/>
 
         <TextView
             android:id="@+id/settings"

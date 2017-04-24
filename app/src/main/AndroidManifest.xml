@@ -23,6 +23,31 @@
             android:label="Profiles">
         </activity>
 
+        <activity
+            android:name=".logins"
+            android:label="Logins" >
+        </activity>
+
+        <activity
+            android:name=".settings"
+            android:label="Settings">
+        </activity>
+
+        <activity
+            android:name=".createProfile"
+            android:label="Create Profile">
+        </activity>
+
+        <activity
+            android:name=".loginType"
+            android:label="Login Type">
+        </activity>
+
+        <activity
+            android:name=".showInfoLogin"
+            android:label="Login Info">
+        </activity>
+
     </application>
 
 </manifest>

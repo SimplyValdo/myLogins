@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class profiles extends AppCompatActivity
-{
-    private TextView profiles;
+public class logins extends AppCompatActivity {
+
     private TextView settings;
+    private TextView profiles;
     private Button newButton;
 
     private TextView dummy;
@@ -19,31 +19,31 @@ public class profiles extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profiles);
-
-        profiles = (TextView) findViewById(R.id.profiles);
-        profiles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(profiles.this, profiles.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.logins);
 
         settings = (TextView) findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profiles.this, settings.class);
+                Intent intent = new Intent(logins.this, settings.class);
                 startActivity(intent);
             }
         });
 
-        newButton =(Button) findViewById(R.id.newButton);
+        profiles = (TextView) findViewById(R.id.profiles);
+        profiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(logins.this, profiles.class);
+                startActivity(intent);
+            }
+        });
+
+        newButton = (Button) findViewById(R.id.newButton);
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profiles.this, createProfile.class);
+                Intent intent = new Intent(logins.this, loginType.class);
                 startActivity(intent);
             }
         });
@@ -52,9 +52,10 @@ public class profiles extends AppCompatActivity
         dummy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(profiles.this, logins.class);
+                Intent intent = new Intent(logins.this, showInfoLogin.class);
                 startActivity(intent);
             }
         });
+
     }
 }
