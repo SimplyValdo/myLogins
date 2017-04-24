@@ -6,12 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class logins extends AppCompatActivity {
 
     private TextView settings;
     private TextView profiles;
+
     private Button newButton;
+    private Button edit;
+    private Button delete;
 
     private TextView dummy;
 
@@ -45,6 +49,22 @@ public class logins extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(logins.this, loginType.class);
                 startActivity(intent);
+            }
+        });
+
+        edit = (Button) findViewById(R.id.edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(logins.this, "Edit", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        delete = (Button) findViewById(R.id.delete);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(logins.this, "Delete", Toast.LENGTH_SHORT).show();
             }
         });
 
