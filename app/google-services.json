@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "246097724368",
+    "firebase_url": "https://mylogins-89d0b.firebaseio.com",
+    "project_id": "mylogins-89d0b",
+    "storage_bucket": "mylogins-89d0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246097724368:android:4f282c1dac16754b",
+        "android_client_info": {
+          "package_name": "com.example.simplyvaldo.mylogins"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246097724368-hdjvm9i39t3esto6cgdqa2vo00ct9hq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxqgtWlkigJmbW8AqLV4p0ZsfZm7Lc02w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

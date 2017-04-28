@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:layout_weight="4" >
 
@@ -21,6 +21,7 @@
                 android:text="Name"/>
 
             <EditText
+                android:id="@+id/EditTextName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -39,6 +40,7 @@
                 android:text="Last Name"/>
 
             <EditText
+                android:id="@+id/EditTextLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -57,6 +59,7 @@
                 android:text="Date Created"/>
 
             <EditText
+                android:id="@+id/EditTextDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="MM/DD/YYYY"
@@ -76,6 +79,7 @@
                 android:text="Relationship" />
 
             <EditText
+                android:id="@+id/EditTextRelationship"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="FATHER/DAUGHTER"
@@ -91,53 +95,40 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5" />
+        android:layout_weight="1"
+        android:gravity="center">
 
         <Button
             android:id="@+id/done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="DONE"/>
 
         <Button
             android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="CANCEL"/>
 
         <Button
             android:id="@+id/edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="EDIT"/>
 
         <Button
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="DELETE"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:layout_weight="1">
 

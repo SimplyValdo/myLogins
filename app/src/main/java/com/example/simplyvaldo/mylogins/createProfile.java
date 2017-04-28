@@ -2,76 +2,104 @@ package com.example.simplyvaldo.mylogins;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 
 public class createProfile extends AppCompatActivity
 {
-    private TextView settings;
-    private TextView profiles;
+    @BindView(R.id.settings)
+    TextView settings;
+    @BindView(R.id.profiles)
+    TextView profiles;
 
-    private Button done;
-    private Button cancel;
-    private Button edit;
-    private Button delete;
+    @BindView(R.id.done)
+    Button done;
+    @BindView(R.id.cancel)
+    Button cancel;
+    @BindView(R.id.edit)
+    Button edit;
+    @BindView(R.id.delete)
+    Button delete;
+
+    @BindView(R.id.EditTextName)
+    EditText name;
+    @BindView(R.id.EditTextLastName)
+    EditText lastName;
+    @BindView(R.id.EditTextDate)
+    EditText date;
+    @BindView(R.id.EditTextRelationship)
+    EditText relationship;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.createprofile);
+        ButterKnife.bind(this);
 
-        settings = (TextView) findViewById(R.id.settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(createProfile.this, settings.class);
-                startActivity(intent);
-            }
-        });
+        done.setEnabled(false);
 
-        profiles = (TextView) findViewById(R.id.profiles);
-        profiles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(createProfile.this, profiles.class);
-                startActivity(intent);
-            }
-        });
+        System.out.println( name.getText().length());
 
-        done = (Button) findViewById(R.id.done);
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(createProfile.this, "Done", Toast.LENGTH_SHORT).show();
-            }
-        });
 
-        cancel = (Button) findViewById(R.id.cancel);
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(createProfile.this, "Cancel", Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
 
-        edit = (Button) findViewById(R.id.edit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(createProfile.this, "Edit", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @OnTextChanged({R.id.EditTextName, R.id.EditTextLastName, R.id.EditTextDate, R.id.EditTextRelationship})
+    public void onChange()
+    {
+      if(!name.getText().toString().isEmpty() && !lastName.getText().toString().isEmpty() &&
+              !date.getText().toString().isEmpty() && !relationship.getText().toString().isEmpty())
+          done.setEnabled(true);
+        else
+          done.setEnabled(false);
+    }
 
-        delete = (Button) findViewById(R.id.delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(createProfile.this, "Delete", Toast.LENGTH_SHORT).show();
-            }
-        });
+    @OnClick(R.id.settings)
+    public void onClickSettings()
+    {
+        Intent intent = new Intent(createProfile.this, settings.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.profiles)
+    public void onClickProfiles()
+    {
+        Intent intent = new Intent(createProfile.this, profiles.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.done)
+    public void onClickDone()
+    {
+        Toast.makeText(createProfile.this, "Done", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.cancel)
+    public void onClickCancel()
+    {
+        Intent intent = new Intent(createProfile.this, profiles.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.edit)
+    public void onClickEdit()
+    {
+        Toast.makeText(createProfile.this, "Edit", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.delete)
+    public void onClickDelete()
+    {
+        Toast.makeText(createProfile.this, "Delete", Toast.LENGTH_SHORT).show();
     }
 }

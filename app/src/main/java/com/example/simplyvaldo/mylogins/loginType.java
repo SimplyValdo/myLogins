@@ -7,17 +7,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class loginType extends AppCompatActivity implements AdapterView.OnItemSelectedListener
 {
-    private Spinner type;
+    @BindView(R.id.dropdown)
+    Spinner type;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_type);
+        ButterKnife.bind(this);
 
-
-        type = (Spinner)findViewById(R.id.dropdown);
         String[] selection = new String[]{"Login Type","Email","Social Media","Bank Account","Credit Card","Membership"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,selection);
         type.setAdapter(adapter);

@@ -8,74 +8,74 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class logins extends AppCompatActivity {
 
-    private TextView settings;
-    private TextView profiles;
+    @BindView(R.id.settings)
+    TextView settings;
+    @BindView(R.id.profiles)
+    TextView profiles;
 
-    private Button newButton;
-    private Button edit;
-    private Button delete;
+    @BindView(R.id.newButton)
+    Button newButton;
+    @BindView(R.id.edit)
+    Button edit;
+    @BindView(R.id.delete)
+    Button delete;
 
-    private TextView dummy;
+    @BindView(R.id.dummy)
+    TextView dummy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.logins);
-
-        settings = (TextView) findViewById(R.id.settings);
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logins.this, settings.class);
-                startActivity(intent);
-            }
-        });
-
-        profiles = (TextView) findViewById(R.id.profiles);
-        profiles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logins.this, profiles.class);
-                startActivity(intent);
-            }
-        });
-
-        newButton = (Button) findViewById(R.id.newButton);
-        newButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logins.this, loginType.class);
-                startActivity(intent);
-            }
-        });
-
-        edit = (Button) findViewById(R.id.edit);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(logins.this, "Edit", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        delete = (Button) findViewById(R.id.delete);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(logins.this, "Delete", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        dummy =(TextView) findViewById(R.id.dummy);
-        dummy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(logins.this, showInfoLogin.class);
-                startActivity(intent);
-            }
-        });
+        ButterKnife.bind(this);
 
     }
+
+    @OnClick(R.id.settings)
+    public void onClickSettings()
+    {
+        Intent intent = new Intent(logins.this, settings.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.profiles)
+    public void onClickProfiles()
+    {
+        Intent intent = new Intent(logins.this, profiles.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.newButton)
+    public void onClickNewButton()
+    {
+        Intent intent = new Intent(logins.this, loginType.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.edit)
+    public void onClickEdit()
+    {
+        Toast.makeText(logins.this, "Edit", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.delete)
+    public void onClickDelete()
+    {
+        Toast.makeText(logins.this, "Delete", Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.dummy)
+    public void onClickDummy()
+    {
+        Intent intent = new Intent(logins.this, showInfoLogin.class);
+        startActivity(intent);
+    }
+
 }
