@@ -62,6 +62,7 @@
                 android:id="@+id/EditTextDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:inputType="date"
                 android:hint="MM/DD/YYYY"
                 android:maxLines="1"
                 android:width="200dp"/>
@@ -111,18 +112,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="CANCEL"/>
-
-        <Button
-            android:id="@+id/edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="EDIT"/>
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DELETE"/>
 
     </LinearLayout>
 

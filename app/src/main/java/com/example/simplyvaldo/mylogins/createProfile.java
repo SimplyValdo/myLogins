@@ -27,10 +27,6 @@ public class createProfile extends AppCompatActivity
     Button done;
     @BindView(R.id.cancel)
     Button cancel;
-    @BindView(R.id.edit)
-    Button edit;
-    @BindView(R.id.delete)
-    Button delete;
 
     @BindView(R.id.EditTextName)
     EditText name;
@@ -89,17 +85,5 @@ public class createProfile extends AppCompatActivity
     {
         Intent intent = new Intent(createProfile.this, profiles.class);
         startActivity(intent);
-    }
-
-    @OnClick(R.id.edit)
-    public void onClickEdit()
-    {
-        Toast.makeText(createProfile.this, "Edit", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.delete)
-    public void onClickDelete()
-    {
-        Toast.makeText(createProfile.this, "Delete", Toast.LENGTH_SHORT).show();
     }
 }

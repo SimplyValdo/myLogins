@@ -2,7 +2,7 @@ package com.example.simplyvaldo.mylogins;
 
 public class ProfilesDB
 {
-    private String Name;
+    private String name;
     private String lastName;
     private String dateCreation;
     private String relationship;
@@ -36,11 +36,11 @@ public class ProfilesDB
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
 }
 

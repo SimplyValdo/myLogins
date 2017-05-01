@@ -48,6 +48,11 @@
             android:label="Login Info">
         </activity>
 
+        <activity
+            android:name=".viewProfile"
+            android:label="View Profile">
+        </activity>
+
     </application>
 
 </manifest>

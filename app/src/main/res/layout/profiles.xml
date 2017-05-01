@@ -17,6 +17,18 @@
 
         </ListView>
 
+
+        <TextView
+            android:id="@+id/emptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="100dp"
+            android:textSize="30dp"
+            android:textColor="#FF0000"
+            android:textStyle="bold"
+            android:text="NO PROFILES" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -42,6 +54,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DELETE"/>
+
+        <RadioButton
+            android:id="@+id/radioButton"
+            android:text="Select All"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
