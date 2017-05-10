@@ -1,0 +1,23 @@
+<tabs>
+    <tab
+        id="@+id/tab_profiles"
+        icon="@mipmap/ic_profile"
+        title="Profiles"
+        activeColor="#faf8f7"
+        inActiveColor="#faf8f7"
+        barColorWhenSelected="#3F51B5"/>
+    <tab
+        id="@+id/tab_logins"
+        icon="@mipmap/ic_storage"
+        title="Logins"
+        activeColor="#faf8f7"
+        inActiveColor="#faf8f7"
+        barColorWhenSelected="#3F51B5" />
+    <tab
+        id="@+id/tab_settings"
+        icon="@mipmap/ic_settings"
+        title="Settings"
+        activeColor="#faf8f7"
+        inActiveColor="#faf8f7"
+        barColorWhenSelected="#3F51B5"/>
+</tabs>

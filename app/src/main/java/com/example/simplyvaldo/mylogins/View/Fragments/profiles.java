@@ -1,19 +1,27 @@
-package com.example.simplyvaldo.mylogins;
+package com.example.simplyvaldo.mylogins.View.Fragments;
+
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
-import com.firebase.ui.database.FirebaseListAdapter;
+import com.example.simplyvaldo.mylogins.Adapter.SwipeHelper;
+import com.example.simplyvaldo.mylogins.Adapter.profilesHolder;
+import com.example.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener;
+import com.example.simplyvaldo.mylogins.Model.ProfilesDB;
+import com.example.simplyvaldo.mylogins.R;
+import com.example.simplyvaldo.mylogins.View.Activities.createProfile;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -23,12 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class profiles extends AppCompatActivity
+public class profiles extends Fragment
 {
-    @BindView(R.id.profiles)
-    TextView profiles;
-    @BindView(R.id.settings)
-    TextView settings;
     @BindView(R.id.newButton)
     Button newButton;
     @BindView(R.id.selectButton)
@@ -39,18 +43,22 @@ public class profiles extends AppCompatActivity
     @BindView(R.id.radioButton)
     RadioButton radioButton;
 
-    @BindView(R.id.pListView)
-    ListView profileList;
+    @BindView(R.id.RecyclerViewProfiles)
+    RecyclerView profileList;
 
-    private FirebaseListAdapter<ProfilesDB> adapter;
+    private FirebaseRecyclerAdapter<ProfilesDB, profilesHolder> adapter;
     private ArrayList<String> selectedProfiles = new ArrayList<String>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.profiles);
-        ButterKnife.bind(this);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.fragment_profiles, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
 
         deleteButton.setVisibility(View.INVISIBLE);
         radioButton.setVisibility(View.INVISIBLE);
@@ -58,37 +66,35 @@ public class profiles extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Profiles");
 
-        adapter = new FirebaseListAdapter<ProfilesDB>(
-                this,
+        profileList.setHasFixedSize(true);
+        profileList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new FirebaseRecyclerAdapter<ProfilesDB, profilesHolder>(
                 ProfilesDB.class,
                 R.layout.listview_profiles,
+                profilesHolder.class,
                 myRef
-        ){
+        ) {
             @Override
-            protected void populateView(View v, final ProfilesDB model, final int position)
+            protected void populateViewHolder(profilesHolder viewHolder, ProfilesDB model, final int position)
             {
-                ImageView profilePic = (ImageView) v.findViewById(R.id.profilePic);
-                profilePic.setImageResource(R.drawable.profile_pic);
-
-                TextView textView = (TextView) v.findViewById(R.id.profileName);
-                textView.setText(model.getName());
-
-                CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkbox);
+                viewHolder.profilePic.setImageResource(R.drawable.profile_pic);
+                viewHolder.profileName.setText(model.getName());
 
                 if(deleteButton.getVisibility() == View.INVISIBLE)
                 {
-                    checkBox.setVisibility(View.INVISIBLE);
+                    viewHolder.checkBox.setVisibility(View.INVISIBLE);
                     radioButton.setVisibility(View.INVISIBLE);
                 }
                 else
                 {
-                    checkBox.setVisibility(View.VISIBLE);
+                    viewHolder.checkBox.setVisibility(View.VISIBLE);
                     radioButton.setVisibility(View.VISIBLE);
                 }
 
                 if(radioButton.isChecked())
                 {
-                    checkBox.setChecked(true);
+                    viewHolder.checkBox.setChecked(true);
 
                     String key = getRef(position).getKey();
 
@@ -103,7 +109,7 @@ public class profiles extends AppCompatActivity
                 else
                     deleteButton.setEnabled(true);
 
-                checkBox.setOnClickListener(new View.OnClickListener() {
+                viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String key = getRef(position).getKey();
@@ -120,29 +126,29 @@ public class profiles extends AppCompatActivity
                     }
                 });
 
-                profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                viewHolder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                        ProfilesDB clickedProfile = (ProfilesDB) adapterView.getItemAtPosition(position);
-                        String clickedFireBaseKey = adapter.getRef(position).getKey();
-
-                        Intent intent = new Intent(profiles.this, viewProfile.class);
-                        intent.putExtra("key", clickedFireBaseKey);
-                        intent.putExtra("name", clickedProfile.getName());
-                        intent.putExtra("lastName", clickedProfile.getLastName());
-                        intent.putExtra("dateCreation", clickedProfile.getDateCreation());
-                        intent.putExtra("relationship", clickedProfile.getRelationship());
-                        startActivity(intent);
+                    public void onClick(View view) {
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.Fragment, new logins());
+                        fragmentTransaction.commit();
                     }
                 });
 
-            };
+                viewHolder.setOnTouchListener(new OnSwipeTouchListener() {
+                    @Override
+                    public void onTouchItem(int pos) {
+                        //Do Nothing here
+                    }
+                });
+
+            }
 
             @Override
             public void onDataChanged()
             {
-                if (profileList.getCount() == 0)
+                if (adapter.getItemCount() == 0)
                 {
                     selectButton.setEnabled(false);
                 }
@@ -152,28 +158,18 @@ public class profiles extends AppCompatActivity
         };
 
         profileList.setAdapter(adapter);
-        TextView emptyView = (TextView)findViewById(R.id.emptyView);
-        profileList.setEmptyView(emptyView);
-    }
+        //TextView emptyView = (TextView)findViewById(R.id.emptyView);
+        //profileList.setEmptyView(emptyView); */
 
-    @OnClick(R.id.profiles)
-    public void OnClickProfiles()
-    {
-        Intent intent = new Intent(this, profiles.class);
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.settings)
-    public void OnClickSettings()
-    {
-        Intent intent = new Intent(this, settings.class);
-        startActivity(intent);
+        ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
+        ItemTouchHelper helper=new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(profileList);
     }
 
     @OnClick(R.id.newButton)
     public void OnClickNewButton()
     {
-        Intent intent = new Intent(this, createProfile.class);
+        Intent intent = new Intent(getActivity(), createProfile.class);
         startActivity(intent);
     }
 

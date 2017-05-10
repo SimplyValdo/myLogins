@@ -1,4 +1,6 @@
-package com.example.simplyvaldo.mylogins;
+package com.example.simplyvaldo.mylogins.Model;
+
+import com.google.firebase.database.Exclude;
 
 public class ProfilesDB
 {
@@ -6,6 +8,20 @@ public class ProfilesDB
     private String lastName;
     private String dateCreation;
     private String relationship;
+
+    private String Email;
+
+    public ProfilesDB(){
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getLastName() {
         return lastName;
@@ -31,16 +47,14 @@ public class ProfilesDB
         this.relationship = relationship;
     }
 
-    ProfilesDB(){
-
+    public String getEmail() {
+        return Email;
     }
 
-    public String getName() {
-        return name;
+    public void setEmail(String email) {
+        this.Email = email;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+
 }
 

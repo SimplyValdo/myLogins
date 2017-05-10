@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".View.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,38 +19,28 @@
         </activity>
 
         <activity
-            android:name=".profiles"
-            android:label="Profiles">
+            android:name=".View.Activities.PrimaryActivity"
+            android:label="Profiles" >
         </activity>
 
         <activity
-            android:name=".logins"
-            android:label="Logins" >
+            android:name=".View.Activities.viewProfile"
+            android:label="View Profile">
         </activity>
 
         <activity
-            android:name=".settings"
-            android:label="Settings">
-        </activity>
-
-        <activity
-            android:name=".createProfile"
+            android:name=".View.Activities.createProfile"
             android:label="Create Profile">
         </activity>
 
         <activity
-            android:name=".loginType"
+            android:name=".View.Activities.loginType"
             android:label="Login Type">
         </activity>
 
         <activity
-            android:name=".showInfoLogin"
+            android:name=".View.Activities.showInfoLogin"
             android:label="Login Info">
-        </activity>
-
-        <activity
-            android:name=".viewProfile"
-            android:label="View Profile">
         </activity>
 
     </application>
