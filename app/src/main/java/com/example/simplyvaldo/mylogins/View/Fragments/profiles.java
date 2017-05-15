@@ -1,11 +1,11 @@
 package com.example.simplyvaldo.mylogins.View.Fragments;
 
 
+import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -17,15 +17,21 @@ import android.widget.RadioButton;
 
 import com.example.simplyvaldo.mylogins.Adapter.SwipeHelper;
 import com.example.simplyvaldo.mylogins.Adapter.profilesHolder;
+import com.example.simplyvaldo.mylogins.Interfaces.FragmentListener;
 import com.example.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener;
-import com.example.simplyvaldo.mylogins.Model.ProfilesDB;
+import com.example.simplyvaldo.mylogins.Model.emailDB;
+import com.example.simplyvaldo.mylogins.Model.profilesDB;
 import com.example.simplyvaldo.mylogins.R;
 import com.example.simplyvaldo.mylogins.View.Activities.createProfile;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,8 +52,15 @@ public class profiles extends Fragment
     @BindView(R.id.RecyclerViewProfiles)
     RecyclerView profileList;
 
-    private FirebaseRecyclerAdapter<ProfilesDB, profilesHolder> adapter;
+    private FragmentListener myListener;
+
+
+    private FirebaseRecyclerAdapter<profilesDB, profilesHolder> adapter;
     private ArrayList<String> selectedProfiles = new ArrayList<String>();
+
+    public profiles() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,19 +77,25 @@ public class profiles extends Fragment
         radioButton.setVisibility(View.INVISIBLE);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Profiles");
+        final DatabaseReference myRef = database.getReference("Profiles");
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
         profileList.setHasFixedSize(true);
-        profileList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        profileList.setLayoutManager(layoutManager);
 
-        adapter = new FirebaseRecyclerAdapter<ProfilesDB, profilesHolder>(
-                ProfilesDB.class,
+        DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(profileList.getContext(), layoutManager.getOrientation());
+        profileList.addItemDecoration(mDividerItemDecoration);
+
+
+        adapter = new FirebaseRecyclerAdapter<profilesDB, profilesHolder>(
+                profilesDB.class,
                 R.layout.listview_profiles,
                 profilesHolder.class,
                 myRef
         ) {
             @Override
-            protected void populateViewHolder(profilesHolder viewHolder, ProfilesDB model, final int position)
+            protected void populateViewHolder(profilesHolder viewHolder, final profilesDB model, final int position)
             {
                 viewHolder.profilePic.setImageResource(R.drawable.profile_pic);
                 viewHolder.profileName.setText(model.getName());
@@ -129,10 +148,8 @@ public class profiles extends Fragment
                 viewHolder.container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.Fragment, new logins());
-                        fragmentTransaction.commit();
+
+                        myListener.SendProfileName(getRef(position).getKey(),model.getName());
                     }
                 });
 
@@ -164,6 +181,22 @@ public class profiles extends Fragment
         ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
         ItemTouchHelper helper=new ItemTouchHelper(callback);
         helper.attachToRecyclerView(profileList);
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+
+        try
+        {
+            myListener = (FragmentListener) context;
+        }
+        catch (ClassCastException e)
+        {
+            throw new ClassCastException(context.toString() + " must implement FragmentListener");
+        }
+
     }
 
     @OnClick(R.id.newButton)

@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.simplyvaldo.mylogins.Model.ProfilesDB;
+import com.example.simplyvaldo.mylogins.Model.profilesDB;
 import com.example.simplyvaldo.mylogins.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,7 +46,6 @@ public class viewProfile extends AppCompatActivity
     FirebaseDatabase database;
     DatabaseReference myRef;
     String FireBaseKey;
-    int originalDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,6 +59,11 @@ public class viewProfile extends AppCompatActivity
         String lastName = this.getIntent().getStringExtra("lastName");
         String dateCreation = this.getIntent().getStringExtra("dateCreation");
         String relationship = this.getIntent().getStringExtra("relationship");
+
+        System.out.println("S " + name);
+        System.out.println("S " + lastName);
+        System.out.println("S " + dateCreation);
+        System.out.println("S " + relationship);
 
         textViewL1.setText("Name: ");
         textViewL2.setText("Last Name: ");
@@ -125,13 +129,19 @@ public class viewProfile extends AppCompatActivity
             database = FirebaseDatabase.getInstance();
             myRef = database.getReference("Profiles/" + FireBaseKey);
 
-            ProfilesDB updateProfile = new ProfilesDB();
+            /*profilesDB updateProfile = new profilesDB();
             updateProfile.setName(editText1.getText().toString());
             updateProfile.setLastName(editText2.getText().toString());
             updateProfile.setDateCreation(editText3.getText().toString());
             updateProfile.setRelationship(editText4.getText().toString());
+             myRef.setValue(updateProfile); */
 
-            myRef.setValue(updateProfile);
+            myRef.child("name").setValue(editText1.getText().toString());
+            myRef.child("lastName").setValue(editText2.getText().toString());
+            myRef.child("dateCreation").setValue(editText3.getText().toString());
+            myRef.child("relationship").setValue(editText4.getText().toString());
+
+
 
             editText1.setFocusable(false);
             editText1.setCursorVisible(false);

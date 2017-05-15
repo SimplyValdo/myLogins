@@ -10,12 +10,12 @@ import com.example.simplyvaldo.mylogins.R;
 
 import butterknife.ButterKnife;
 
-public class settings extends Fragment
+public class categories extends Fragment
 {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_categories, container, false);
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
-import com.example.simplyvaldo.mylogins.Model.ProfilesDB;
+import com.example.simplyvaldo.mylogins.Model.profilesDB;
 import com.example.simplyvaldo.mylogins.View.Activities.PrimaryActivity;
 import com.example.simplyvaldo.mylogins.View.Activities.viewProfile;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -30,7 +30,7 @@ public class SwipeHelper extends ItemTouchHelper.SimpleCallback
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
-        ProfilesDB clickedProfile = (ProfilesDB) adapter.getItem(viewHolder.getAdapterPosition());
+        profilesDB clickedProfile = (profilesDB) adapter.getItem(viewHolder.getAdapterPosition());
         String clickedFireBaseKey = adapter.getRef(viewHolder.getAdapterPosition()).getKey();
 
         Intent intent = new Intent(PrimaryActivity.getContext(), viewProfile.class);

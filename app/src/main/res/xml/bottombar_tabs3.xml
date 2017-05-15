@@ -14,6 +14,13 @@
         inActiveColor="#000000"
         barColorWhenSelected="#FFFFFF" />
     <tab
+        id="@+id/tab_Favorites"
+        icon="@mipmap/ic_favorite"
+        title="Favorites"
+        activeColor="#0000FF"
+        inActiveColor="#000000"
+        barColorWhenSelected="#FFFFFF"/>
+    <tab
         id="@+id/tab_settings"
         icon="@mipmap/ic_settings"
         title="Settings"

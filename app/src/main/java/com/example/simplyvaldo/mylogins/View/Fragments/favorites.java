@@ -1,5 +1,6 @@
 package com.example.simplyvaldo.mylogins.View.Fragments;
 
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,12 +11,12 @@ import com.example.simplyvaldo.mylogins.R;
 
 import butterknife.ButterKnife;
 
-public class settings extends Fragment
+public class favorites extends Fragment
 {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        return inflater.inflate(R.layout.fragment_favorites, container, false);
     }
 
     @Override

@@ -7,6 +7,13 @@
         inActiveColor="#000000"
         barColorWhenSelected="#FFFFFF"/>
     <tab
+        id="@+id/tab_categories"
+        icon="@mipmap/ic_storage"
+        title="Categories"
+        activeColor="#0000FF"
+        inActiveColor="#000000"
+        barColorWhenSelected="#FFFFFF" />
+    <tab
         id="@+id/tab_Favorites"
         icon="@mipmap/ic_favorite"
         title="Favorites"

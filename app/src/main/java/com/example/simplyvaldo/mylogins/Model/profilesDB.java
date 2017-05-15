@@ -1,17 +1,17 @@
 package com.example.simplyvaldo.mylogins.Model;
 
-import com.google.firebase.database.Exclude;
+import com.google.firebase.database.PropertyName;
 
-public class ProfilesDB
+public class profilesDB
 {
     private String name;
     private String lastName;
     private String dateCreation;
     private String relationship;
 
-    private String Email;
+    private loginsTypeDB types;
 
-    public ProfilesDB(){
+    public profilesDB(){
 
     }
 
@@ -47,14 +47,12 @@ public class ProfilesDB
         this.relationship = relationship;
     }
 
-    public String getEmail() {
-        return Email;
+    public loginsTypeDB getTypes() {
+        return types;
     }
 
-    public void setEmail(String email) {
-        this.Email = email;
+    public void setTypes(loginsTypeDB types) {
+        this.types = types;
     }
-
-
 }
 
