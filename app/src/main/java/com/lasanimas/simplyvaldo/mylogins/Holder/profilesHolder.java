@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.Adapter;
+package com.lasanimas.simplyvaldo.mylogins.Adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
@@ -7,8 +7,8 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener;
-import com.example.simplyvaldo.mylogins.R;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener;
+import com.lasanimas.simplyvaldo.mylogins.R;
 
 public class profilesHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
 
@@ -17,7 +17,7 @@ public class profilesHolder extends RecyclerView.ViewHolder implements View.OnTo
     public CheckBox checkBox;
     public View container;
 
-    com.example.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener OnSwipeTouchListener;
+    com.lasanimas.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener OnSwipeTouchListener;
 
     public profilesHolder(View itemView)
     {

@@ -26,6 +26,8 @@
                 <EditText
                     android:id="@+id/editText1"
                     android:text="EditSample1"
+                    android:inputType="text"
+                    android:width="150dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -44,6 +46,8 @@
                 <EditText
                     android:id="@+id/editText2"
                     android:text="EditSample2"
+                    android:inputType="text"
+                    android:width="150dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -64,6 +68,7 @@
                     android:id="@+id/editText3"
                     android:text="EditSample3"
                     android:inputType="date"
+                    android:width="150dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </TableRow>
@@ -81,6 +86,8 @@
                 <EditText
                     android:id="@+id/editText4"
                     android:text="EditSample4"
+                    android:inputType="text"
+                    android:width="150dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
