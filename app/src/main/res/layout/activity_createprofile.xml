@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:inputType="textNoSuggestions"
             android:width="200dp"/>
 
     </LinearLayout>
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
+            android:inputType="textNoSuggestions"
             android:width="200dp"/>
 
     </LinearLayout>
@@ -82,6 +84,7 @@
             android:layout_height="wrap_content"
             android:hint="FATHER/DAUGHTER"
             android:maxLines="1"
+            android:inputType="textNoSuggestions"
             android:width="200dp"/>
 
     </LinearLayout>

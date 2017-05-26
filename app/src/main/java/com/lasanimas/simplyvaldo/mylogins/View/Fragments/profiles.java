@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.View.Fragments;
+package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 
 
 import android.app.Fragment;
@@ -15,23 +15,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 
-import com.example.simplyvaldo.mylogins.Adapter.SwipeHelper;
-import com.example.simplyvaldo.mylogins.Adapter.profilesHolder;
-import com.example.simplyvaldo.mylogins.Interfaces.FragmentListener;
-import com.example.simplyvaldo.mylogins.Interfaces.OnSwipeTouchListener;
-import com.example.simplyvaldo.mylogins.Model.emailDB;
-import com.example.simplyvaldo.mylogins.Model.profilesDB;
-import com.example.simplyvaldo.mylogins.R;
-import com.example.simplyvaldo.mylogins.View.Activities.createProfile;
+import com.lasanimas.simplyvaldo.mylogins.Helper.ItemTouchHelperCallback;
+import com.lasanimas.simplyvaldo.mylogins.Holder.profilesHolder;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Model.profilesDB;
+import com.lasanimas.simplyvaldo.mylogins.R;
+import com.lasanimas.simplyvaldo.mylogins.View.Activities.createProfile;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.roughike.bottombar.BottomBar;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,8 +46,7 @@ public class profiles extends Fragment
     @BindView(R.id.RecyclerViewProfiles)
     RecyclerView profileList;
 
-    private FragmentListener myListener;
-
+    private FragmentToActivityListener myListener;
 
     private FirebaseRecyclerAdapter<profilesDB, profilesHolder> adapter;
     private ArrayList<String> selectedProfiles = new ArrayList<String>();
@@ -152,14 +145,6 @@ public class profiles extends Fragment
                         myListener.SendProfileName(getRef(position).getKey(),model.getName());
                     }
                 });
-
-                viewHolder.setOnTouchListener(new OnSwipeTouchListener() {
-                    @Override
-                    public void onTouchItem(int pos) {
-                        //Do Nothing here
-                    }
-                });
-
             }
 
             @Override
@@ -178,7 +163,7 @@ public class profiles extends Fragment
         //TextView emptyView = (TextView)findViewById(R.id.emptyView);
         //profileList.setEmptyView(emptyView); */
 
-        ItemTouchHelper.Callback callback = new SwipeHelper(adapter);
+        ItemTouchHelper.Callback callback = new ItemTouchHelperCallback(adapter);
         ItemTouchHelper helper=new ItemTouchHelper(callback);
         helper.attachToRecyclerView(profileList);
     }
@@ -190,11 +175,11 @@ public class profiles extends Fragment
 
         try
         {
-            myListener = (FragmentListener) context;
+            myListener = (FragmentToActivityListener) context;
         }
         catch (ClassCastException e)
         {
-            throw new ClassCastException(context.toString() + " must implement FragmentListener");
+            throw new ClassCastException(context.toString() + " must implement FragmentToActivityListener");
         }
 
     }

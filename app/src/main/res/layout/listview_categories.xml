@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
 
     <TextView android:id="@+id/numID"
-        android:text="Logins"
+        android:text="Categories"
         android:textSize="25sp"
         android:textStyle="bold"
         android:paddingLeft="20dp"

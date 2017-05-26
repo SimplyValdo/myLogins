@@ -1,6 +1,4 @@
-package com.example.simplyvaldo.mylogins.Model;
-
-import com.google.firebase.database.PropertyName;
+package com.lasanimas.simplyvaldo.mylogins.Model;
 
 public class profilesDB
 {

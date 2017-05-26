@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.Model;
+package com.lasanimas.simplyvaldo.mylogins.Model;
 
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins;
+package com.lasanimas.simplyvaldo.mylogins;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

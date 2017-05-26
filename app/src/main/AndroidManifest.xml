@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.simplyvaldo.mylogins">
+    package="com.lasanimas.simplyvaldo.mylogins">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".View.Activities.MainActivity">
+        <activity android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,27 +19,27 @@
         </activity>
 
         <activity
-            android:name=".View.Activities.PrimaryActivity"
+            android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.PrimaryActivity"
             android:label="Profiles" >
         </activity>
 
         <activity
-            android:name=".View.Activities.viewProfile"
+            android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.viewProfile"
             android:label="View Profile">
         </activity>
 
         <activity
-            android:name=".View.Activities.createProfile"
+            android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.createProfile"
             android:label="Create Profile">
         </activity>
 
         <activity
-            android:name=".View.Activities.loginType"
+            android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.loginType"
             android:label="Login Type">
         </activity>
 
         <activity
-            android:name=".View.Activities.showInfoLogin"
+            android:name="com.lasanimas.simplyvaldo.mylogins.View.Activities.showInfoLogin"
             android:label="Login Info">
         </activity>
 

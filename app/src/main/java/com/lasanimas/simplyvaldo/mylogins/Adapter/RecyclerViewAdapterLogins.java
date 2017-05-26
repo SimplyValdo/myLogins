@@ -6,53 +6,40 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.lasanimas.simplyvaldo.mylogins.Holder.CategoriesHolder;
-import com.lasanimas.simplyvaldo.mylogins.Holder.loginsHolder;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewToFragmentListener;
 import com.lasanimas.simplyvaldo.mylogins.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerViewAdapterLogins.loginsHolder>
 {
     private ArrayList<String> logins;
+    private HashMap<Integer,String> types;
     private Context mContext;
+    private RecyclerViewToFragmentListener myListener;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> logins) {
+    public RecyclerViewAdapterLogins(Context context, ArrayList<String> logins, HashMap<Integer,String> types, RecyclerViewToFragmentListener myListener) {
         this.logins = logins;
+        this.types = types;
         mContext = context;
+        this.myListener = myListener;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public loginsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View inflatedView;
-
-        switch (viewType) {
-            case 0:
-                inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_logins, parent, false);
-                return new loginsHolder(inflatedView);
-            case 2:
-                inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_categories, parent, false);
-                return new CategoriesHolder(inflatedView);
-        }
-
-        return null;
+        View inflatedView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_logins, parent, false);
+        return new loginsHolder(inflatedView);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(loginsHolder holder, int position) {
 
-        switch (holder.getItemViewType()) {
-            case 0:
-                loginsHolder viewHolder0 = (loginsHolder)holder;
-                viewHolder0.textView.setText(logins.get(position));
-                break;
-
-            case 2:
-                CategoriesHolder viewHolder2 = (CategoriesHolder)holder;
-                break;
-        }
+        holder.textView.setText(logins.get(position));
     }
 
     @Override
@@ -68,7 +55,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return logins.size();
     }
 
-    private Context getContext() {
-        return mContext;
+    public class loginsHolder extends RecyclerView.ViewHolder
+    {
+        public TextView textView;
+        public View container;
+
+        public loginsHolder(View itemView) {
+
+            super(itemView);
+            textView = (TextView)itemView.findViewById(R.id.numID);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    myListener.SendSelectLoginInfo(logins.get(getAdapterPosition()), types.get(getAdapterPosition()) );
+                }
+            });
+        }
     }
 }

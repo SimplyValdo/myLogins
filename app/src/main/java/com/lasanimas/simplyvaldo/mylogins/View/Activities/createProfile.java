@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.View.Activities;
+package com.lasanimas.simplyvaldo.mylogins.View.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.simplyvaldo.mylogins.Model.profilesDB;
-import com.example.simplyvaldo.mylogins.R;
+import com.lasanimas.simplyvaldo.mylogins.Model.profilesDB;
+import com.lasanimas.simplyvaldo.mylogins.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 

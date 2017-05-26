@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.View.Activities;
+package com.lasanimas.simplyvaldo.mylogins.View.Activities;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,12 +9,14 @@ import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.example.simplyvaldo.mylogins.Interfaces.FragmentListener;
-import com.example.simplyvaldo.mylogins.R;
-import com.example.simplyvaldo.mylogins.View.Fragments.favorites;
-import com.example.simplyvaldo.mylogins.View.Fragments.profiles;
-import com.example.simplyvaldo.mylogins.View.Fragments.settings;
-import com.example.simplyvaldo.mylogins.View.Fragments.tabLayout;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.R;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.favorites;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.logins;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.profiles;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.settings;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.tabLayout;
+import com.lasanimas.simplyvaldo.mylogins.View.Fragments.viewLogin;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -22,9 +24,9 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PrimaryActivity extends AppCompatActivity implements FragmentListener
+public class PrimaryActivity extends AppCompatActivity implements FragmentToActivityListener
 {
-    private String currentID;
+    //private String currentID;
 
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
@@ -51,16 +53,19 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentListen
                 switch(tabId)
                 {
                     case R.id.tab_profiles:
+                        fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new profiles(), "profilesTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_Favorites:
+                        fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new favorites(), "favoritesTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_settings:
+                        fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new settings(), "settingsTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
@@ -79,13 +84,16 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentListen
                 switch(tabId)
                 {
                     case R.id.tab_profiles:
+                        fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new profiles(), "profilesTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_Favorites:
+                        fragmentManager.popBackStack();
                         break;
                     case R.id.tab_settings:
+                        fragmentManager.popBackStack();
                         break;
                 }
             }
@@ -96,11 +104,19 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentListen
         return mContext;
     }
 
+    public void commitFragmentLayout(Fragment fragment, String tag)
+    {
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.Fragment, fragment, tag);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
     @Override
     public void SendProfileName(String id, String name) {
 
-        currentID = id;
+        //currentID = id;
         Bundle args = new Bundle();
         args.putString("id", id);
         args.putString("profileName", name);
@@ -109,12 +125,18 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentListen
         commitFragmentLayout(fragment, "currentLoginTag");
     }
 
-    public void commitFragmentLayout(Fragment fragment, String tag)
-    {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.Fragment, fragment, tag);
-        transaction.addToBackStack(null);
-        transaction.commit();
+
+    @Override
+    public void SendLoginName(String id, String currentLoginName, String type) {
+
+        Bundle args = new Bundle();
+        args.putString("id", id);
+        args.putString("currentLoginName", currentLoginName);
+        args.putString("type", type);
+
+        tabLayout fragment = new tabLayout();
+        fragment.setArguments(args);
+        commitFragmentLayout(fragment, "viewLoginDetails");
+
     }
 }

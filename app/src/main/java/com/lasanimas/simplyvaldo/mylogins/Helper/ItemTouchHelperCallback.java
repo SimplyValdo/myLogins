@@ -1,28 +1,31 @@
 package com.lasanimas.simplyvaldo.mylogins.Helper;
 
+import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.lasanimas.simplyvaldo.mylogins.Model.profilesDB;
+import com.lasanimas.simplyvaldo.mylogins.View.Activities.PrimaryActivity;
+import com.lasanimas.simplyvaldo.mylogins.View.Activities.viewProfile;
 
-public class SwipeHelperFireBase extends ItemTouchHelper.SimpleCallback
+public class ItemTouchHelperCallback extends ItemTouchHelper.SimpleCallback
 {
     private FirebaseRecyclerAdapter adapter;
 
-    public SwipeHelperFireBase(FirebaseRecyclerAdapter adapter) {
+    public ItemTouchHelperCallback(FirebaseRecyclerAdapter adapter) {
         super(ItemTouchHelper.UP, ItemTouchHelper.RIGHT);
         this.adapter = adapter;
     }
 
     @Override
-    public boolean onMove(FirebaseRecyclerAdapter recyclerView, FirebaseRecyclerAdapter.ViewHolder viewHolder, FirebaseRecyclerAdapter.ViewHolder target) {
-
-        adapter.onItemMove(viewHolder.getAdapterPosition(), target.getAdapterPosition());
-        return true;
+    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        return false;
     }
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
-        /*profilesDB clickedProfile = (profilesDB) adapter.getItem(viewHolder.getAdapterPosition());
+        profilesDB clickedProfile = (profilesDB) adapter.getItem(viewHolder.getAdapterPosition());
         String clickedFireBaseKey = adapter.getRef(viewHolder.getAdapterPosition()).getKey();
 
         Intent intent = new Intent(PrimaryActivity.getContext(), viewProfile.class);
@@ -32,8 +35,6 @@ public class SwipeHelperFireBase extends ItemTouchHelper.SimpleCallback
         intent.putExtra("lastName", clickedProfile.getLastName());
         intent.putExtra("dateCreation", clickedProfile.getDateCreation());
         intent.putExtra("relationship", clickedProfile.getRelationship());
-        PrimaryActivity.getContext().startActivity(intent);*/
-
-        adapter.onItemDismiss(viewHolder.getAdapterPosition());
+        PrimaryActivity.getContext().startActivity(intent);
     }
 }

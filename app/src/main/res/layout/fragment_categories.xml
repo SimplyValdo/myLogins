@@ -6,12 +6,20 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/profileName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Coming Soon"
-        android:textSize="25sp"
-        android:textStyle="bold"
+        android:layout_gravity="center"
         android:paddingTop="10dp"
-        android:layout_gravity="center"/>
+        android:text="Profile Name"
+        android:textSize="25sp"
+        android:textColor="@color/colorAccent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerViewCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

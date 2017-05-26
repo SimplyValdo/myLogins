@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.example.simplyvaldo.mylogins.View.Activities.MainActivity">
+    tools:context="com.lasanimas.simplyvaldo.mylogins.View.Activities.MainActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"

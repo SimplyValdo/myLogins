@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins;
+package com.lasanimas.simplyvaldo.mylogins;
 
 import org.junit.Test;
 

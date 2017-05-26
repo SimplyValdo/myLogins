@@ -1,4 +1,4 @@
-package com.example.simplyvaldo.mylogins.View.Fragments;
+package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 
 
 import android.app.Fragment;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.simplyvaldo.mylogins.R;
+import com.lasanimas.simplyvaldo.mylogins.R;
 
 import butterknife.ButterKnife;
 
