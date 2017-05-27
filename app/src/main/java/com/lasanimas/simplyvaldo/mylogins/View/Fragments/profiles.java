@@ -4,6 +4,8 @@ package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -88,18 +90,49 @@ public class profiles extends Fragment
                 myRef
         ) {
             @Override
-            protected void populateViewHolder(profilesHolder viewHolder, final profilesDB model, final int position)
+            protected void populateViewHolder(profilesHolder viewHolder, final profilesDB model, int position)
             {
+                final String key = getRef(position).getKey();
+
+                viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if(!selectedProfiles.contains(key))
+                            selectedProfiles.add(key);
+                        else
+                        {
+                            selectedProfiles.remove(key);
+                            //radioButton.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                        }
+
+                        if(selectedProfiles.isEmpty())
+                            deleteButton.setEnabled(false);
+                        else
+                            deleteButton.setEnabled(true);
+                    }
+                });
+
+                viewHolder.profileName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        myListener.SendProfileName(key ,model.getName());
+                    }
+                });
+
                 viewHolder.profilePic.setImageResource(R.drawable.profile_pic);
                 viewHolder.profileName.setText(model.getName());
 
                 if(deleteButton.getVisibility() == View.INVISIBLE)
                 {
                     viewHolder.checkBox.setVisibility(View.INVISIBLE);
+                    viewHolder.profileName.setClickable(true);
                     radioButton.setVisibility(View.INVISIBLE);
                 }
                 else
                 {
+                    viewHolder.profileName.setClickable(false);
                     viewHolder.checkBox.setVisibility(View.VISIBLE);
                     radioButton.setVisibility(View.VISIBLE);
                 }
@@ -107,8 +140,6 @@ public class profiles extends Fragment
                 if(radioButton.isChecked())
                 {
                     viewHolder.checkBox.setChecked(true);
-
-                    String key = getRef(position).getKey();
 
                     if(!selectedProfiles.contains(key))
                         selectedProfiles.add(key);
@@ -121,30 +152,6 @@ public class profiles extends Fragment
                 else
                     deleteButton.setEnabled(true);
 
-                viewHolder.checkBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String key = getRef(position).getKey();
-
-                        if(!selectedProfiles.contains(key))
-                            selectedProfiles.add(key);
-                        else
-                            selectedProfiles.remove(key);
-
-                        if(selectedProfiles.isEmpty())
-                            deleteButton.setEnabled(false);
-                        else
-                            deleteButton.setEnabled(true);
-                    }
-                });
-
-                viewHolder.container.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        myListener.SendProfileName(getRef(position).getKey(),model.getName());
-                    }
-                });
             }
 
             @Override

@@ -39,10 +39,10 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
 {
     @BindView(R.id.newButton)
     Button newButton;
-    @BindView(R.id.edit)
-    Button edit;
-    @BindView(R.id.delete)
-    Button delete;
+    @BindView(R.id.selectButton)
+    Button selectButton;
+    @BindView(R.id.deleteButton)
+    Button deleteButton;
 
     @BindView(R.id.profileName)
     TextView profileName;
@@ -74,6 +74,9 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
 
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+
+        deleteButton.setVisibility(View.INVISIBLE);
+        deleteButton.setEnabled(false);
 
         Bundle bundle = this.getArguments();
 
@@ -165,16 +168,27 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
         startActivity(intent);
     }
 
-    @OnClick(R.id.edit)
-    public void onClickEdit()
+    @OnClick(R.id.selectButton)
+    public void onClickSelectButton()
     {
-        Toast.makeText(getActivity(), "Edit", Toast.LENGTH_SHORT).show();
+        if(deleteButton.getVisibility() == View.INVISIBLE)
+        {
+            adapter.checkBoxesVisibility(true);
+            deleteButton.setVisibility(View.VISIBLE);
+            selectButton.setText("CANCEL");
+        }
+        else
+        {
+            adapter.checkBoxesVisibility(false);
+            deleteButton.setVisibility(View.INVISIBLE);
+            selectButton.setText("SELECT");
+        }
     }
 
-    @OnClick(R.id.delete)
-    public void onClickDelete()
+    @OnClick(R.id.deleteButton)
+    public void onClickDeleteButton()
     {
-        Toast.makeText(getActivity(), "Delete", Toast.LENGTH_SHORT).show();
+        adapter.deleteSelectedLogins(id);
     }
 
     @OnClick(R.id.profileName)
@@ -232,5 +246,10 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     public void SendSelectLoginInfo(String currentLoginName, String type) {
 
         myListener.SendLoginName(id, currentLoginName, type);
+    }
+
+    @Override
+    public void setStateDeleteButton(boolean status) {
+        deleteButton.setEnabled(status);
     }
 }

@@ -43,13 +43,13 @@
             android:text="NEW"/>
 
         <Button
-            android:id="@+id/edit"
+            android:id="@+id/selectButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EDIT"/>
+            android:text="SELECT"/>
 
         <Button
-            android:id="@+id/delete"
+            android:id="@+id/deleteButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DELETE"/>

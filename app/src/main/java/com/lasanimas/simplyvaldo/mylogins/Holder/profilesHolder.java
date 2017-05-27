@@ -13,7 +13,7 @@ public class profilesHolder extends RecyclerView.ViewHolder  {
     public ImageView profilePic;
     public TextView profileName;
     public CheckBox checkBox;
-    public View container;
+    //public View container;
 
     public profilesHolder(View itemView)
     {
@@ -22,6 +22,6 @@ public class profilesHolder extends RecyclerView.ViewHolder  {
         profilePic = (ImageView)itemView.findViewById(R.id.profilePic);
         profileName = (TextView)itemView.findViewById(R.id.profileName);
         checkBox = (CheckBox)itemView.findViewById(R.id.checkbox);
-        container = itemView;
+        //container = itemView;
     }
 }
