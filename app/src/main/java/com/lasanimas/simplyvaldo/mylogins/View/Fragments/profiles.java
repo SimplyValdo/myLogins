@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,17 +51,17 @@ public class profiles extends Fragment
     @BindView(R.id.RecyclerViewProfiles)
     RecyclerView profileList;
 
+    private ColorStateList DefaultStateRadioButton;
     private FragmentToActivityListener myListener;
 
     private FirebaseRecyclerAdapter<profilesDB, profilesHolder> adapter;
     private ArrayList<String> selectedProfiles = new ArrayList<String>();
 
     public profiles() {
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         return inflater.inflate(R.layout.fragment_profiles, container, false);
     }
@@ -70,6 +73,7 @@ public class profiles extends Fragment
 
         deleteButton.setVisibility(View.INVISIBLE);
         radioButton.setVisibility(View.INVISIBLE);
+        DefaultStateRadioButton = radioButton.getButtonTintList();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference("Profiles");
@@ -100,16 +104,23 @@ public class profiles extends Fragment
 
                         if(!selectedProfiles.contains(key))
                             selectedProfiles.add(key);
-                        else
-                        {
+                        else {
                             selectedProfiles.remove(key);
-                            //radioButton.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                            radioButton.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
                         }
 
-                        if(selectedProfiles.isEmpty())
+                        if(selectedProfiles.isEmpty()){
                             deleteButton.setEnabled(false);
+                            radioButton.setChecked(isChecked = false);
+                            radioButton.setButtonTintList(DefaultStateRadioButton);
+                        }
                         else
                             deleteButton.setEnabled(true);
+
+                        if(selectedProfiles.size() == adapter.getItemCount()) {
+                            radioButton.setChecked(isChecked = true);
+                            radioButton.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.colorAccent)));
+                        }
                     }
                 });
 
@@ -158,9 +169,7 @@ public class profiles extends Fragment
             public void onDataChanged()
             {
                 if (adapter.getItemCount() == 0)
-                {
                     selectButton.setEnabled(false);
-                }
                 else
                     selectButton.setEnabled(true);
             }
@@ -180,12 +189,10 @@ public class profiles extends Fragment
     {
         super.onAttach(context);
 
-        try
-        {
+        try {
             myListener = (FragmentToActivityListener) context;
         }
-        catch (ClassCastException e)
-        {
+        catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement FragmentToActivityListener");
         }
 
@@ -201,19 +208,17 @@ public class profiles extends Fragment
     @OnClick(R.id.selectButton)
     public void OnClickSelectButton()
     {
-        if(deleteButton.getVisibility() == View.INVISIBLE)
-        {
+        if(deleteButton.getVisibility() == View.INVISIBLE) {
             deleteButton.setVisibility(View.VISIBLE);
             selectButton.setText("CANCEL");
         }
-        else
-        {
-            if (radioButton.isChecked())
-            {
+        else {
+            if (radioButton.isChecked()) {
                 radioButton.setChecked(false);
                 isChecked ^= true;
             }
 
+            radioButton.setButtonTintList(DefaultStateRadioButton);
             deleteButton.setVisibility(View.INVISIBLE);
             selectButton.setText("SELECT");
         }
@@ -227,12 +232,16 @@ public class profiles extends Fragment
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Profiles");
 
-        for(String currentProfile: selectedProfiles)
-        {
+        for(String currentProfile: selectedProfiles) {
             myRef.child(currentProfile).removeValue();
         }
 
         profileList.setAdapter(adapter);
+        selectButton.setText("SELECT");
+        radioButton.setChecked(isChecked = false);
+        radioButton.setButtonTintList(DefaultStateRadioButton);
+        deleteButton.setVisibility(View.INVISIBLE);
+        radioButton.setVisibility(View.INVISIBLE);
     }
 
     boolean isChecked = false;
@@ -241,10 +250,14 @@ public class profiles extends Fragment
     public void onClickRadioButton() {
         isChecked ^= true;
 
-        if (isChecked)
+        if (isChecked) {
             radioButton.setChecked(true);
-        else
+            radioButton.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.colorAccent)));
+        }
+        else {
             radioButton.setChecked(false);
+            radioButton.setButtonTintList(DefaultStateRadioButton);
+        }
 
         profileList.setAdapter(adapter);
     }

@@ -33,12 +33,14 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
     private Context mContext;
 
     private boolean checkBoxVisibility;
+    private boolean checkBoxSelectAll;
     private RecyclerViewToFragmentListener myListener;
 
     public RecyclerViewAdapterLogins(Context context, ArrayList<String> logins, HashMap<Integer,String> types, RecyclerViewToFragmentListener myListener) {
         this.logins = logins;
         this.types = types;
         this.checkBoxVisibility = false;
+        this.checkBoxSelectAll = false;
         this.checkBoxStatus = new HashSet<>();
 
         mContext = context;
@@ -57,23 +59,21 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
 
         holder.textView.setText(logins.get(position));
 
-        if(checkBoxVisibility)
-        {
+        if(checkBoxVisibility) {
             holder.textView.setClickable(false);
             holder.checkBox.setVisibility(View.VISIBLE);
             holder.arrow.setVisibility(View.GONE);
         }
-        else
-        {
+        else {
             holder.textView.setClickable(true);
             holder.checkBox.setVisibility(View.GONE);
             holder.arrow.setVisibility(View.VISIBLE);
         }
 
-        /*if(checkBoxStatus.contains(holder.checkBox))
+        if(checkBoxSelectAll)
             holder.checkBox.setChecked(true);
         else
-            holder.checkBox.setChecked(false);*/
+            holder.checkBox.setChecked(false);
     }
 
     @Override
@@ -89,12 +89,35 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
         return logins.size();
     }
 
+    public void checkBoxesVisibility(boolean state)
+    {
+        checkBoxVisibility = state;
+        notifyDataSetChanged();
+    }
+
+    public void setAllCheckBoxes(boolean state)
+    {
+        checkBoxSelectAll = state;
+        notifyDataSetChanged();
+    }
+
+    public void deleteSelectedLogins(String id)
+    {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("Profiles/" + id + "/categories");
+
+        for(Integer position: checkBoxStatus)
+        {
+            myRef.child(types.get(position)).child(logins.get(position)).removeValue();
+        }
+    }
+
     public class loginsHolder extends RecyclerView.ViewHolder
     {
         public TextView textView;
         public CheckBox checkBox;
         public ImageView arrow;
-        public View container;
+        //public View container;
 
         public loginsHolder(final View itemView) {
 
@@ -116,39 +139,28 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
-                    if(checkBoxStatus.contains(getAdapterPosition()))
-                        checkBoxStatus.remove(getAdapterPosition());
-                    else
+                    if(b)
                         checkBoxStatus.add(getAdapterPosition());
+                    else
+                    {
+                        myListener.setStateSomeCheckedRadioButton("green");
+                        checkBoxStatus.remove(getAdapterPosition());
+                    }
 
                     if(checkBoxStatus.isEmpty())
+                    {
+                        myListener.setStateSomeCheckedRadioButton("default");
                         myListener.setStateDeleteButton(false);
+                    }
                     else
                         myListener.setStateDeleteButton(true);
 
+                    if(checkBoxStatus.size() == getItemCount())
+                    {
+                        myListener.allCheckBoxesCheckedManually();
+                    }
                 }
             });
-        }
-    }
-
-    public void checkBoxesVisibility(boolean state)
-    {
-        if(state)
-            checkBoxVisibility = true;
-        else
-            checkBoxVisibility = false;
-
-        notifyDataSetChanged();
-    }
-
-    public void deleteSelectedLogins(String id)
-    {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("Profiles/" + id + "/categories");
-
-        for(Integer position: checkBoxStatus)
-        {
-           myRef.child(types.get(position)).child(logins.get(position)).removeValue();
         }
     }
 }

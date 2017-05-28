@@ -4,7 +4,10 @@ package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +47,8 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     Button selectButton;
     @BindView(R.id.deleteButton)
     Button deleteButton;
+    @BindView(R.id.radioButton)
+    RadioButton radioButton;
 
     @BindView(R.id.profileName)
     TextView profileName;
@@ -54,6 +60,7 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     private RecyclerViewAdapterLogins adapter;
 
     private String id;
+    private ColorStateList DefaultStateRadioButton;
     private ArrayList<String> logins;
     private HashMap<Integer, String> types;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -75,8 +82,10 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
+        radioButton.setVisibility(View.INVISIBLE);
         deleteButton.setVisibility(View.INVISIBLE);
         deleteButton.setEnabled(false);
+        DefaultStateRadioButton = radioButton.getButtonTintList();
 
         Bundle bundle = this.getArguments();
 
@@ -157,6 +166,8 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                Log.i("DataBaseError", databaseError.getMessage());
+                Log.i("DataBaseError", databaseError.getDetails());
             }
         });
     }
@@ -175,12 +186,21 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
         {
             adapter.checkBoxesVisibility(true);
             deleteButton.setVisibility(View.VISIBLE);
+            radioButton.setVisibility(View.VISIBLE);
             selectButton.setText("CANCEL");
         }
         else
         {
+            if (radioButton.isChecked()) {
+                radioButton.setChecked(false);
+                isChecked ^= true;
+            }
+
             adapter.checkBoxesVisibility(false);
+            adapter.setAllCheckBoxes(false);
             deleteButton.setVisibility(View.INVISIBLE);
+            radioButton.setVisibility(View.INVISIBLE);
+            radioButton.setButtonTintList(DefaultStateRadioButton);
             selectButton.setText("SELECT");
         }
     }
@@ -189,6 +209,30 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     public void onClickDeleteButton()
     {
         adapter.deleteSelectedLogins(id);
+        selectButton.setText("SELECT");
+        radioButton.setChecked(isChecked = false);
+        radioButton.setButtonTintList(DefaultStateRadioButton);
+        deleteButton.setVisibility(View.INVISIBLE);
+        radioButton.setVisibility(View.INVISIBLE);
+    }
+
+    boolean isChecked = false;
+
+    @OnClick(R.id.radioButton)
+    public void onClickRadioButton()
+    {
+        isChecked ^= true;
+
+        if (isChecked) {
+            radioButton.setChecked(true);
+            radioButton.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.colorAccent)));
+            adapter.setAllCheckBoxes(true);
+        }
+        else {
+            radioButton.setChecked(false);
+            radioButton.setButtonTintList(DefaultStateRadioButton);
+            adapter.setAllCheckBoxes(false);
+        }
     }
 
     @OnClick(R.id.profileName)
@@ -214,6 +258,8 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+                Log.i("DataBaseError", databaseError.getMessage());
+                Log.i("DataBaseError", databaseError.getDetails());
             }
         });
     }
@@ -223,12 +269,10 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     {
         super.onAttach(context);
 
-        try
-        {
+        try {
             myListener = (FragmentToActivityListener) context;
         }
-        catch (ClassCastException e)
-        {
+        catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement FragmentToActivityListener");
         }
 
@@ -251,5 +295,26 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     @Override
     public void setStateDeleteButton(boolean status) {
         deleteButton.setEnabled(status);
+    }
+
+    @Override
+    public void setStateSomeCheckedRadioButton(String color) {
+
+        switch(color)
+        {
+            case "default":
+                radioButton.setButtonTintList(DefaultStateRadioButton);
+                radioButton.setChecked(isChecked = false);
+                break;
+            case "green":
+                radioButton.setButtonTintList(ColorStateList.valueOf(Color.GREEN));
+                break;
+        }
+    }
+
+    @Override
+    public void allCheckBoxesCheckedManually() {
+        radioButton.setChecked(isChecked = true);
+        radioButton.setButtonTintList(ColorStateList.valueOf(ContextCompat.getColor(getActivity(), R.color.colorAccent)));
     }
 }
