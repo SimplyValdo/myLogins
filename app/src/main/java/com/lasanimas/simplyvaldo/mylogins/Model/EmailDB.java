@@ -1,11 +1,11 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
-public class emailDB
+public class Yahoo
 {
     private String email;
     private String password;
 
-    public emailDB() {
+    public Yahoo() {
     }
 
     public String getEmail() {
