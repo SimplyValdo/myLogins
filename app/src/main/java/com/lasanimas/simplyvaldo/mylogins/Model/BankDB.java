@@ -1,12 +1,12 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
 
-public class bankDB
+public class BankDB
 {
     private String username;
     private String password;
 
-    public bankDB()
+    public BankDB()
     {
 
     }

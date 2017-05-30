@@ -128,7 +128,7 @@ public class viewProfile extends AppCompatActivity
             database = FirebaseDatabase.getInstance();
             myRef = database.getReference("Profiles/" + FireBaseKey);
 
-            /*profilesDB updateProfile = new profilesDB();
+            /*ProfilesDB updateProfile = new ProfilesDB();
             updateProfile.setName(editText1.getText().toString());
             updateProfile.setLastName(editText2.getText().toString());
             updateProfile.setDateCreation(editText3.getText().toString());

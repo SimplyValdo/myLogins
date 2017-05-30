@@ -1,13 +1,13 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
 
-public class devicesDB
+public class DevicesDB
 {
     private String deviceName;
     private String password;
     private String deviceType;
 
-    public devicesDB()
+    public DevicesDB()
     {
 
     }

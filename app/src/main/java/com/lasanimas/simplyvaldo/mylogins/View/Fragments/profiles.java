@@ -1,19 +1,19 @@
 package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +22,8 @@ import android.widget.RadioButton;
 
 import com.lasanimas.simplyvaldo.mylogins.Helper.ItemTouchHelperCallback;
 import com.lasanimas.simplyvaldo.mylogins.Holder.profilesHolder;
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
-import com.lasanimas.simplyvaldo.mylogins.Model.profilesDB;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentLoginsToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Model.ProfilesDB;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.lasanimas.simplyvaldo.mylogins.View.Activities.createProfile;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -52,9 +52,9 @@ public class profiles extends Fragment
     RecyclerView profileList;
 
     private ColorStateList DefaultStateRadioButton;
-    private FragmentToActivityListener myListener;
+    private FragmentLoginsToActivityListener myListener;
 
-    private FirebaseRecyclerAdapter<profilesDB, profilesHolder> adapter;
+    private FirebaseRecyclerAdapter<ProfilesDB, profilesHolder> adapter;
     private ArrayList<String> selectedProfiles = new ArrayList<String>();
 
     public profiles() {
@@ -87,14 +87,14 @@ public class profiles extends Fragment
         profileList.addItemDecoration(mDividerItemDecoration);
 
 
-        adapter = new FirebaseRecyclerAdapter<profilesDB, profilesHolder>(
-                profilesDB.class,
+        adapter = new FirebaseRecyclerAdapter<ProfilesDB, profilesHolder>(
+                ProfilesDB.class,
                 R.layout.listview_profiles,
                 profilesHolder.class,
                 myRef
         ) {
             @Override
-            protected void populateViewHolder(profilesHolder viewHolder, final profilesDB model, int position)
+            protected void populateViewHolder(profilesHolder viewHolder, final ProfilesDB model, int position)
             {
                 final String key = getRef(position).getKey();
 
@@ -190,12 +190,28 @@ public class profiles extends Fragment
         super.onAttach(context);
 
         try {
-            myListener = (FragmentToActivityListener) context;
+            myListener = (FragmentLoginsToActivityListener) context;
         }
         catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement FragmentToActivityListener");
+            throw new ClassCastException(context.toString() + " must implement FragmentLoginsToActivityListener");
         }
 
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (Build.VERSION.SDK_INT < 23) {
+
+            try {
+                myListener = (FragmentLoginsToActivityListener) activity;
+            }
+            catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString() + " must implement FragmentLoginsToActivityListener");
+            }
+        }
     }
 
     @OnClick(R.id.newButton)

@@ -1,12 +1,12 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
 
-public class mediaDB
+public class MediaDB
 {
     private String username;
     private String password;
 
-    public mediaDB()
+    public MediaDB()
     {
 
     }

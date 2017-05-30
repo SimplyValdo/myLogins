@@ -11,14 +11,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewToFragmentListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewLoginsToFragmentListener;
 import com.lasanimas.simplyvaldo.mylogins.R;
 
 import java.util.ArrayList;
@@ -34,9 +29,9 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
 
     private boolean checkBoxVisibility;
     private boolean checkBoxSelectAll;
-    private RecyclerViewToFragmentListener myListener;
+    private RecyclerViewLoginsToFragmentListener myListener;
 
-    public RecyclerViewAdapterLogins(Context context, ArrayList<String> logins, HashMap<Integer,String> types, RecyclerViewToFragmentListener myListener) {
+    public RecyclerViewAdapterLogins(Context context, ArrayList<String> logins, HashMap<Integer,String> types, RecyclerViewLoginsToFragmentListener myListener) {
         this.logins = logins;
         this.types = types;
         this.checkBoxVisibility = false;
@@ -79,7 +74,7 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
     @Override
     public int getItemViewType(int position) {
 
-        Log.i("Position", Integer.toString(position));
+        Log.i("PositionLogins", Integer.toString(position));
         return super.getItemViewType(position);
     }
 
@@ -119,7 +114,7 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
         public ImageView arrow;
         //public View container;
 
-        public loginsHolder(final View itemView) {
+        public loginsHolder(View itemView) {
 
             super(itemView);
             textView = (TextView)itemView.findViewById(R.id.numID);

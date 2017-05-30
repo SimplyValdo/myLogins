@@ -6,20 +6,38 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.lasanimas.simplyvaldo.mylogins.Holder.CategoriesHolder;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewCategoriesToFragmentListener;
 import com.lasanimas.simplyvaldo.mylogins.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<CategoriesHolder>
+public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<RecyclerViewAdapterCategories.CategoriesHolder>
 {
     private ArrayList<String> categories;
+    private HashMap<String, Object> category;
+    private List<String> logins;
     private Context mContext;
 
-    public RecyclerViewAdapterCategories(Context context, ArrayList<String> categories) {
+    private RecyclerViewCategoriesToFragmentListener myListener;
+
+    public RecyclerViewAdapterCategories(Context context, ArrayList<String> categories, RecyclerViewCategoriesToFragmentListener myListener ) {
         this.categories = categories;
         mContext = context;
+        this.myListener = myListener;
+    }
+
+    public RecyclerViewAdapterCategories(Context context, HashMap category, RecyclerViewCategoriesToFragmentListener myListener ) {
+        this.category = category;
+        mContext = context;
+        this.myListener = myListener;
+
+        if(category != null)
+            logins = new ArrayList(category.keySet());
+
     }
 
     @Override
@@ -33,19 +51,50 @@ public class RecyclerViewAdapterCategories extends RecyclerView.Adapter<Categori
     @Override
     public void onBindViewHolder(CategoriesHolder holder, int position) {
 
-        holder.textView.setText(categories.get(position));
+        if( categories != null)
+            holder.textView.setText(categories.get(position));
+        else
+            holder.textView.setText(logins.get(position));
+
     }
 
     @Override
     public int getItemViewType(int position) {
 
-        Log.i("Position", Integer.toString(position));
+        Log.i("PositionCategories", Integer.toString(position));
         return super.getItemViewType(position);
     }
 
     @Override
     public int getItemCount() {
 
-        return categories.size();
+        if(categories != null)
+            return categories.size();
+        else if(category != null)
+            return category.size();
+        else
+            return 0;
+    }
+
+    public class CategoriesHolder extends RecyclerView.ViewHolder
+    {
+        public TextView textView;
+
+        public CategoriesHolder(View itemView)
+        {
+            super(itemView);
+            textView = (TextView)itemView.findViewById(R.id.TextViewCategory);
+
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if( categories != null)
+                        myListener.sendCategory(categories.get(getAdapterPosition()));
+                    else
+                        myListener.SendSelectLoginInfo(logins.get(getAdapterPosition()));;
+                }
+            });
+        }
     }
 }

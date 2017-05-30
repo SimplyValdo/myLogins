@@ -1,11 +1,11 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
-public class membershipDB
+public class MembershipDB
 {
     private String username;
     private String password;
 
-    public membershipDB()
+    public MembershipDB()
     {
 
     }

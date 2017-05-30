@@ -44,7 +44,15 @@ public class tabLayout extends Fragment
         fragmentManager = getFragmentManager();
         bundle = this.getArguments();
 
-        setPageAdapter();
+        TabLayout.Tab firstTab = tabLayout.newTab();
+        tabLayout.addTab(firstTab);
+
+        TabLayout.Tab secondTab = tabLayout.newTab();
+        tabLayout.addTab(secondTab);
+
+        int tab = bundle.getInt("tab");
+
+        setPageAdapter(tab);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -59,30 +67,34 @@ public class tabLayout extends Fragment
             public void onTabReselected(TabLayout.Tab tab) {
 
                 if (tab.getPosition() == 0 && fragmentManager.findFragmentByTag("viewLoginDetails") != null)
-                {
                     fragmentManager.popBackStack();
-                    adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount(), bundle);
-                }
+                else if (tab.getPosition() == 1 && fragmentManager.findFragmentByTag("viewLoginDetails2") != null)
+                    fragmentManager.popBackStack();
+                else if(tab.getPosition() == 0)
+                    setPageAdapter(0);
+                else if(tab.getPosition() == 1)
+                    setPageAdapter(1);
             }
         });
     }
 
-    public void setPageAdapter()
+    public void setPageAdapter(int defaultTab)
     {
        if (fragmentManager.findFragmentByTag("viewLoginDetails") != null)
-           bundle.putString("Layout","viewLoginDetails");
+           bundle.putString("LayoutLogins","viewLoginDetails");
        else
-           bundle.putString("Layout","Default");
+           bundle.putString("LayoutLogins","Default");
 
-        TabLayout.Tab firstTab = tabLayout.newTab();
-        tabLayout.addTab(firstTab);
-
-        TabLayout.Tab secondTab = tabLayout.newTab();
-        tabLayout.addTab(secondTab);
+        if (fragmentManager.findFragmentByTag("viewLoginDetails2") != null)
+            bundle.putString("LayoutLogins2","viewLoginDetails2");
+        else
+            bundle.putString("LayoutLogins2","Default");
 
         adapter = new PagerAdapter(getChildFragmentManager(), tabLayout.getTabCount(), bundle);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(adapter);
+
+        viewPager.setCurrentItem(defaultTab);
     }
 }

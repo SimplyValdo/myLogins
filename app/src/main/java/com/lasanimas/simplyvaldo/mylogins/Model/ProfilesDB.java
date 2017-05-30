@@ -1,15 +1,15 @@
 package com.lasanimas.simplyvaldo.mylogins.Model;
 
-public class profilesDB
+public class ProfilesDB
 {
     private String name;
     private String lastName;
     private String dateCreation;
     private String relationship;
 
-    private loginsTypeDB types;
+    private CategoriesHelper categories;
 
-    public profilesDB(){
+    public ProfilesDB(){
 
     }
 
@@ -45,12 +45,12 @@ public class profilesDB
         this.relationship = relationship;
     }
 
-    public loginsTypeDB getTypes() {
-        return types;
+    public CategoriesHelper getCategories() {
+        return categories;
     }
 
-    public void setTypes(loginsTypeDB types) {
-        this.types = types;
+    public void setCategories(CategoriesHelper categories) {
+        this.categories = categories;
     }
 }
 

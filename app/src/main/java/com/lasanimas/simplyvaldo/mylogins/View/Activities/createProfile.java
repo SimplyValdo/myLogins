@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.lasanimas.simplyvaldo.mylogins.Model.profilesDB;
+import com.lasanimas.simplyvaldo.mylogins.Model.ProfilesDB;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -61,7 +61,7 @@ public class createProfile extends AppCompatActivity
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Profiles/");
 
-        profilesDB newProfile = new profilesDB();
+        ProfilesDB newProfile = new ProfilesDB();
         newProfile.setName(name.getText().toString());
         newProfile.setLastName(lastName.getText().toString());
         newProfile.setDateCreation(date.getText().toString());

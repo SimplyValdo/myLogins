@@ -7,16 +7,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentCategoriesToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentLoginsToActivityListener;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.lasanimas.simplyvaldo.mylogins.View.Fragments.favorites;
-import com.lasanimas.simplyvaldo.mylogins.View.Fragments.logins;
 import com.lasanimas.simplyvaldo.mylogins.View.Fragments.profiles;
 import com.lasanimas.simplyvaldo.mylogins.View.Fragments.settings;
 import com.lasanimas.simplyvaldo.mylogins.View.Fragments.tabLayout;
-import com.lasanimas.simplyvaldo.mylogins.View.Fragments.viewLogin;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabReselectListener;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -24,7 +22,7 @@ import com.roughike.bottombar.OnTabSelectListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PrimaryActivity extends AppCompatActivity implements FragmentToActivityListener
+public class PrimaryActivity extends AppCompatActivity implements FragmentLoginsToActivityListener, FragmentCategoriesToActivityListener
 {
     //private String currentID;
 
@@ -127,16 +125,32 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentToActi
 
 
     @Override
-    public void SendLoginName(String id, String currentLoginName, String type) {
+    public void SendLoginName(String id, String currentLoginName, String type, int tab) {
 
         Bundle args = new Bundle();
         args.putString("id", id);
         args.putString("currentLoginName", currentLoginName);
         args.putString("type", type);
+        args.putInt("tab", tab);
 
         tabLayout fragment = new tabLayout();
         fragment.setArguments(args);
         commitFragmentLayout(fragment, "viewLoginDetails");
+
+    }
+
+    @Override
+    public void SendLoginName2(String id, String currentLoginName, String type, int tab) {
+
+        Bundle args = new Bundle();
+        args.putString("id", id);
+        args.putString("currentLoginName", currentLoginName);
+        args.putString("type", type);
+        args.putInt("tab", tab);
+
+        tabLayout fragment = new tabLayout();
+        fragment.setArguments(args);
+        commitFragmentLayout(fragment, "viewLoginDetails2");
 
     }
 }

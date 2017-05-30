@@ -28,7 +28,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter
         switch (position) {
             case 0:
 
-                if(fragmentBundle.getString("Layout").equals("viewLoginDetails"))
+                if(fragmentBundle.getString("LayoutLogins").equals("viewLoginDetails"))
                 {
                     viewLogin tab0 = new viewLogin();
                     tab0.setArguments(fragmentBundle);
@@ -42,9 +42,18 @@ public class PagerAdapter extends FragmentStatePagerAdapter
                 }
 
             case 1:
-                categories tab1 = new categories();
-                tab1.setArguments(fragmentBundle);
-                return tab1;
+                if(fragmentBundle.getString("LayoutLogins2").equals("viewLoginDetails2"))
+                {
+                    viewLogin tab0 = new viewLogin();
+                    tab0.setArguments(fragmentBundle);
+                    return tab0;
+                }
+                else
+                {
+                    categories tab0 = new categories();
+                    tab0.setArguments(fragmentBundle);
+                    return tab0;
+                }
             default:
                 return null;
         }
@@ -59,5 +68,4 @@ public class PagerAdapter extends FragmentStatePagerAdapter
     public int getCount() {
         return NumberOfTabs;
     }
-
 }

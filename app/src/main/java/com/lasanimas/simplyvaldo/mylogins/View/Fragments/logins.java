@@ -1,11 +1,13 @@
 package com.lasanimas.simplyvaldo.mylogins.View.Fragments;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -18,11 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.lasanimas.simplyvaldo.mylogins.Adapter.RecyclerViewAdapterLogins;
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentToActivityListener;
-import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewToFragmentListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentLoginsToActivityListener;
+import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewLoginsToFragmentListener;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.lasanimas.simplyvaldo.mylogins.View.Activities.loginType;
 import com.lasanimas.simplyvaldo.mylogins.View.Activities.viewProfile;
@@ -39,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class logins extends Fragment implements RecyclerViewToFragmentListener
+public class logins extends Fragment implements RecyclerViewLoginsToFragmentListener
 {
     @BindView(R.id.newButton)
     Button newButton;
@@ -56,7 +57,7 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     @BindView(R.id.RecyclerViewLogins)
     RecyclerView loginsListView;
 
-    private FragmentToActivityListener myListener;
+    private FragmentLoginsToActivityListener myListener;
     private RecyclerViewAdapterLogins adapter;
 
     private String id;
@@ -270,12 +271,28 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
         super.onAttach(context);
 
         try {
-            myListener = (FragmentToActivityListener) context;
+            myListener = (FragmentLoginsToActivityListener) context;
         }
         catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement FragmentToActivityListener");
+            throw new ClassCastException(context.toString() + " must implement FragmentLoginsToActivityListener");
         }
 
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        if (Build.VERSION.SDK_INT < 23) {
+
+            try {
+                myListener = (FragmentLoginsToActivityListener) activity;
+            }
+            catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString() + " must implement FragmentLoginsToActivityListener");
+            }
+        }
     }
 
     @Override
@@ -289,7 +306,7 @@ public class logins extends Fragment implements RecyclerViewToFragmentListener
     @Override
     public void SendSelectLoginInfo(String currentLoginName, String type) {
 
-        myListener.SendLoginName(id, currentLoginName, type);
+        myListener.SendLoginName(id, currentLoginName, type, 0);
     }
 
     @Override
