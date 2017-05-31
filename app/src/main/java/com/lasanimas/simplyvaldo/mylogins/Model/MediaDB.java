@@ -5,6 +5,7 @@ public class MediaDB
 {
     private String username;
     private String password;
+    private String dateCreation;
 
     public MediaDB()
     {
@@ -25,5 +26,13 @@ public class MediaDB
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

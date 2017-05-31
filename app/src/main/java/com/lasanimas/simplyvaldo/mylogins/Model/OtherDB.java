@@ -4,6 +4,7 @@ public class OtherDB
 {
     private String username;
     private String password;
+    private String dateCreation;
 
     public OtherDB()
     {
@@ -24,5 +25,13 @@ public class OtherDB
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

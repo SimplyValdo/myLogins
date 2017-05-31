@@ -51,19 +51,19 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentLogins
                 switch(tabId)
                 {
                     case R.id.tab_profiles:
-                        fragmentManager.popBackStack();
+                        //fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new profiles(), "profilesTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_Favorites:
-                        fragmentManager.popBackStack();
+                        //fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new favorites(), "favoritesTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_settings:
-                        fragmentManager.popBackStack();
+                        //fragmentManager.popBackStack();
                         fragmentTransaction.replace(R.id.Fragment, new settings(), "settingsTag");
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
@@ -88,10 +88,16 @@ public class PrimaryActivity extends AppCompatActivity implements FragmentLogins
                         fragmentTransaction.commit();
                         break;
                     case R.id.tab_Favorites:
-                        fragmentManager.popBackStack();
+                        //fragmentManager.popBackStack();
+                        fragmentTransaction.replace(R.id.Fragment, new favorites(), "favoritesTag");
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         break;
                     case R.id.tab_settings:
-                        fragmentManager.popBackStack();
+                        //fragmentManager.popBackStack();
+                        fragmentTransaction.replace(R.id.Fragment, new settings(), "settingsTag");
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         break;
                 }
             }

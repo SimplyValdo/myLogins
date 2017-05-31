@@ -4,6 +4,7 @@ public class SocialDB
 {
     private String email;
     private String password;
+    private String dateCreation;
 
     public SocialDB() {
 
@@ -23,5 +24,13 @@ public class SocialDB
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

@@ -30,6 +30,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter
 
                 if(fragmentBundle.getString("LayoutLogins").equals("viewLoginDetails"))
                 {
+                    Log.i("Called", "From Logins");
                     viewLogin tab0 = new viewLogin();
                     tab0.setArguments(fragmentBundle);
                     return tab0;

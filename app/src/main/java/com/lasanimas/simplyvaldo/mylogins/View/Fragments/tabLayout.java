@@ -66,6 +66,8 @@ public class tabLayout extends Fragment
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+                Fragment temp;
+
                 if (tab.getPosition() == 0 && fragmentManager.findFragmentByTag("viewLoginDetails") != null)
                     fragmentManager.popBackStack();
                 else if (tab.getPosition() == 1 && fragmentManager.findFragmentByTag("viewLoginDetails2") != null)

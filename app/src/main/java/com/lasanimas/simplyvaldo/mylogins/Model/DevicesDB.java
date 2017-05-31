@@ -6,6 +6,7 @@ public class DevicesDB
     private String deviceName;
     private String password;
     private String deviceType;
+    private String dateCreation;
 
     public DevicesDB()
     {
@@ -34,5 +35,13 @@ public class DevicesDB
 
     public void setDeviceType(String deviceType) {
         this.deviceType = deviceType;
+    }
+
+    public String getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(String dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

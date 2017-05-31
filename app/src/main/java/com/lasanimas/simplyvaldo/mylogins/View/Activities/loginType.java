@@ -1,17 +1,15 @@
 package com.lasanimas.simplyvaldo.mylogins.View.Activities;
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.lasanimas.simplyvaldo.mylogins.Model.EmailDB;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.lasanimas.simplyvaldo.mylogins.View.Fragments.CreateLogin;
-import com.lasanimas.simplyvaldo.mylogins.View.Fragments.settings;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,7 +83,10 @@ public class loginType extends AppCompatActivity
                break;
        }
 
-        fragmentManager.beginTransaction().replace(R.id.frameLayout2, new CreateLogin()).addToBackStack(null).commit();
+        CreateLogin fragPage = new CreateLogin();
+        bundle.putString("id", this.getIntent().getStringExtra("id"));
+        fragPage.setArguments(bundle);
+        fragmentManager.beginTransaction().replace(R.id.frameLayout2, fragPage).addToBackStack(null).commit();
         frameLayout2.setVisibility(View.VISIBLE);
     }
 }

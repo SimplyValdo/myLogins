@@ -19,6 +19,9 @@ import com.lasanimas.simplyvaldo.mylogins.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+
+import io.paperdb.Paper;
 
 public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerViewAdapterLogins.loginsHolder>
 {
@@ -30,12 +33,14 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
     private boolean checkBoxVisibility;
     private boolean checkBoxSelectAll;
     private RecyclerViewLoginsToFragmentListener myListener;
+    private List<Boolean> isFavorite;
 
     public RecyclerViewAdapterLogins(Context context, ArrayList<String> logins, HashMap<Integer,String> types, RecyclerViewLoginsToFragmentListener myListener) {
         this.logins = logins;
         this.types = types;
         this.checkBoxVisibility = false;
         this.checkBoxSelectAll = false;
+        this.isFavorite = Paper.book().read("favorites");
         this.checkBoxStatus = new HashSet<>();
 
         mContext = context;
@@ -51,6 +56,11 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(loginsHolder holder, int position) {
+
+        if(isFavorite.get(position))
+            holder.favorite.setImageResource(R.mipmap.ic_action_favorite);
+        else
+            holder.favorite.setImageResource(R.mipmap.ic_action_favorite_border);
 
         holder.textView.setText(logins.get(position));
 
@@ -109,6 +119,7 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
 
     public class loginsHolder extends RecyclerView.ViewHolder
     {
+        public ImageView favorite;
         public TextView textView;
         public CheckBox checkBox;
         public ImageView arrow;
@@ -117,10 +128,27 @@ public class RecyclerViewAdapterLogins extends RecyclerView.Adapter<RecyclerView
         public loginsHolder(View itemView) {
 
             super(itemView);
+            favorite = (ImageView) itemView.findViewById(R.id.favoriteIcon);
             textView = (TextView)itemView.findViewById(R.id.numID);
             arrow = (ImageView) itemView.findViewById(R.id.arrow);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkbox);
 
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    if(isFavorite.get(getAdapterPosition())) {
+                        favorite.setImageResource(R.mipmap.ic_action_favorite_border);
+                        isFavorite.set(getAdapterPosition(), false);
+                    }
+                    else {
+                        favorite.setImageResource(R.mipmap.ic_action_favorite);
+                        isFavorite.set(getAdapterPosition(), true);
+                    }
+
+                    Paper.book().write("favorites", isFavorite);
+                }
+            });
 
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override

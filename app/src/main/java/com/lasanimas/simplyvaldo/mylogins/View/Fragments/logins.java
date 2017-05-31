@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import com.lasanimas.simplyvaldo.mylogins.Adapter.RecyclerViewAdapterLogins;
 import com.lasanimas.simplyvaldo.mylogins.Interfaces.FragmentLoginsToActivityListener;
 import com.lasanimas.simplyvaldo.mylogins.Interfaces.RecyclerViewLoginsToFragmentListener;
+import com.lasanimas.simplyvaldo.mylogins.Model.CategoriesHelper;
 import com.lasanimas.simplyvaldo.mylogins.R;
 import com.lasanimas.simplyvaldo.mylogins.View.Activities.loginType;
 import com.lasanimas.simplyvaldo.mylogins.View.Activities.viewProfile;
@@ -34,11 +36,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.paperdb.Paper;
 
 public class logins extends Fragment implements RecyclerViewLoginsToFragmentListener
 {
@@ -61,14 +66,15 @@ public class logins extends Fragment implements RecyclerViewLoginsToFragmentList
     private RecyclerViewAdapterLogins adapter;
 
     private String id;
+    private int size;
     private ColorStateList DefaultStateRadioButton;
     private ArrayList<String> logins;
     private HashMap<Integer, String> types;
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference myRef ;
+    private List<Boolean> isFavorite;
 
     public logins() {
-
     }
 
     @Override
@@ -112,6 +118,9 @@ public class logins extends Fragment implements RecyclerViewLoginsToFragmentList
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                CategoriesHelper categoriesHelper = dataSnapshot.getValue(CategoriesHelper.class);
+                Paper.book().write("categories",categoriesHelper);
 
                 int counter = 0;
                 logins = new ArrayList<String>();
@@ -160,8 +169,21 @@ public class logins extends Fragment implements RecyclerViewLoginsToFragmentList
                     types.put(counter++, "other");
                 }
 
+                size = logins.size();
                 adapter = new RecyclerViewAdapterLogins(getActivity(), logins, types, logins.this);
                 loginsListView.setAdapter(adapter);
+
+                isFavorite = new ArrayList<>();
+                for(int i = 0; i < size; i++)
+                {
+                    isFavorite.add(false);
+                }
+
+                if(!Paper.book().exist("favorites"))
+                {
+                    Paper.book().write("favorites", isFavorite);
+                    Log.i("I'm inside", "I don't exist");
+                }
             }
 
             @Override
@@ -177,6 +199,7 @@ public class logins extends Fragment implements RecyclerViewLoginsToFragmentList
     public void onClickNewButton()
     {
         Intent intent = new Intent(getActivity(), loginType.class);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 

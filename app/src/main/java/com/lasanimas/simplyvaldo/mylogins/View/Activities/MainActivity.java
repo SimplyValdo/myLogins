@@ -10,6 +10,7 @@ import com.lasanimas.simplyvaldo.mylogins.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -22,6 +23,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Paper.init(this);
     }
 
     @OnClick(R.id.login)
